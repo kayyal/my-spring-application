@@ -1,26 +1,42 @@
 package ir.neshan.myspringapplication.controller;
 
 import ir.neshan.myspringapplication.model.Food;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ir.neshan.myspringapplication.service.FoodService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/foods")
 public class FoodController {
+    private final FoodService foodService;
 
-    private final List<Food> foodList = new ArrayList<>();
-    /* = List.of(
-            new Food(234, "Omlet", 234234.3),
-            new Food(456, "pizza", 567)
-    );*/
+    @Autowired
+    public FoodController(FoodService foodService) {
+        this.foodService = foodService;
+    }
 
+    @GetMapping("/{restaurantId}")
+    public List<Food> getFoodbyRestauratns(@PathVariable Long restaurantId) {
+        return foodService.getFoodsByRestaurantId(restaurantId);
+    }
 
-    private long nextId = 1;
+    @PostMapping
+    public Food createFood(@RequestBody Food food) {
+        return foodService.createFood(food);
+    }
 
-    @GetMapping
-    public List<Food> getFoodList() {
-        return foodList;
+    @PutMapping("/{id}")
+    public void updateFood(@PathVariable Long id, @RequestBody Food updatedFood) {
+        foodService.updateFood(updatedFood);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteFood(@PathVariable Long id) {
+        foodService.deleteFood(id);
     }
 }
+
+
+

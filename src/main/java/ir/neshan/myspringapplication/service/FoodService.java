@@ -1,7 +1,6 @@
 package ir.neshan.myspringapplication.service;
 
 import ir.neshan.myspringapplication.model.Food;
-import ir.neshan.myspringapplication.model.Restaurant;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,25 +9,32 @@ import java.util.stream.Collectors;
 
 @Service
 public class FoodService {
-    List<Food> foods = new ArrayList<>();
-    private long nextFoodId = 1;
+    private final List<Food> foods = new ArrayList<>();
+    private Long nextFoodId = 1L;
 
-    public List<Food> getFoodsbyRestaurantId(Long restaurantId) {
+    public List<Food> getFoodsByRestaurantId(Long restaurantId) {
         return foods.stream()
-                .filter(food -> food.restaurant().getId().equals(restaurantId))
+                .filter(item -> item.restaurant().getId().equals(restaurantId))
                 .collect(Collectors.toList());
     }
 
     public Food createFood(Food food) {
-        // TODO
-        return new Food(3243, "biff", 234, new Restaurant(23L, "delpazier", List.of()));
+        Food tempFood = new Food(nextFoodId++, food.name(), food.price(), food.restaurant());
+        foods.add(tempFood);
+        return tempFood;
     }
 
     public void updateFood(Food updatedFood) {
-        // TODO
+        for (int i = 0; i < foods.size(); i++) {
+            Food food = foods.get(i);
+            if (food.id().equals(updatedFood.id())) {
+                foods.set(i, updatedFood);
+                break;
+            }
+        }
     }
 
-    public void deleteFood(Long nextFoodId) {
-        // TODO
+    public void deleteFood(Long id) {
+        foods.removeIf(item -> item.id().equals(id));
     }
 }
