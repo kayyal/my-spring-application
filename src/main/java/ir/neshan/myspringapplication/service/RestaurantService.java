@@ -16,7 +16,7 @@ public class RestaurantService {
     }
 
     public Restaurant createRestaurant(Restaurant restaurant) {
-        restaurant.setId(nextRestaurantId);
+        restaurant.setId(nextRestaurantId++);
         restaurantsList.add(restaurant);
         return restaurant;
     }

@@ -1,8 +1,12 @@
 package ir.neshan.myspringapplication.controller;
 
 import ir.neshan.myspringapplication.model.Food;
+import ir.neshan.myspringapplication.model.User;
 import ir.neshan.myspringapplication.service.FoodService;
+import ir.neshan.myspringapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,14 +15,17 @@ import java.util.List;
 @RequestMapping("/foods")
 public class FoodController {
     private final FoodService foodService;
+    private final UserService userService;
 
     @Autowired
-    public FoodController(FoodService foodService) {
+    public FoodController(FoodService foodService, UserService userService) {
         this.foodService = foodService;
+        this.userService = userService;
     }
 
     @GetMapping("/{restaurantId}")
     public List<Food> getFoodbyRestauratns(@PathVariable Long restaurantId) {
+        System.out.println("in the getFoodbyREstaurants methods !!!!");
         return foodService.getFoodsByRestaurantId(restaurantId);
     }
 
@@ -36,6 +43,35 @@ public class FoodController {
     public void deleteFood(@PathVariable Long id) {
         foodService.deleteFood(id);
     }
+
+    @PutMapping("/{foodId}/change-price")
+    public ResponseEntity<String> changeFoodPrice(
+            @PathVariable Long foodId,
+            @RequestParam double newPrice,
+            @RequestParam String username) {
+        User user = userService.getUserByUsername(username);
+        Food food = foodService.getFoodById(foodId);
+
+        if (food != null && foodService.isOwnerOfRestaurant(user, food.getRestaurant().getId())) {
+            // change the price of the food item
+            boolean priceChanged = foodService.updateFoodPrice(foodId, newPrice);
+            if (priceChanged) {
+                return ResponseEntity
+                        .ok("Food price updated.");
+            } else {
+                return ResponseEntity
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Failed to update food price.");
+            }
+        } else {
+            // User is not the owner or the food item does not exist; return an unauthorized response
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("Unauthorized: You are not the owner of this restaurant or the food item does not exist.");
+        }
+    }
+
+
 }
 
 

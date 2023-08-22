@@ -12,6 +12,7 @@ public class OrderService {
     private Long nextOrderId = 1L;
 
     public Order createOrder(Order order) {
+        
         order.setId(nextOrderId);
         orders.add(order);
         return order;

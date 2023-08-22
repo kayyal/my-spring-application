@@ -7,11 +7,20 @@ public class Restaurant {
     private Long id;
     private String name;
     private List<Food> menu;
+    private User owner;
 
     public Restaurant(Long id, String name, List<Food> menu) {
         this.id = id;
         this.name = name;
         this.menu = menu;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Long getId() {
