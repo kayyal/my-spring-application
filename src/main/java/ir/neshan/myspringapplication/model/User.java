@@ -1,6 +1,8 @@
 package ir.neshan.myspringapplication.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
     private Long id;
     private String username;
@@ -31,8 +33,13 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {

@@ -22,6 +22,7 @@ public class UserService {
     public User createUser(User user) {
         user.setId(nextUserId++);
         users.add(user);
+
         return user;
     }
 
