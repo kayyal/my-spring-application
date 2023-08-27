@@ -1,49 +1,20 @@
 package ir.neshan.myspringapplication.model;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+
 import java.util.List;
 
-
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class Restaurant {
-    private Long id;
-    private String name;
-    private List<Food> menu;
-    private User owner;
-
-    public Restaurant(Long id, String name, List<Food> menu) {
-        this.id = id;
-        this.name = name;
-        this.menu = menu;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Food> getMenu() {
-        return menu;
-    }
-
-    public void setMenu(List<Food> menu) {
-        this.menu = menu;
-    }
+    Long id;
+    String name;
+    List<Food> menu;
+    User owner;
 }

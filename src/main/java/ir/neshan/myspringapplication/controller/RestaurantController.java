@@ -6,7 +6,6 @@ import ir.neshan.myspringapplication.model.User;
 import ir.neshan.myspringapplication.service.FoodService;
 import ir.neshan.myspringapplication.service.RestaurantService;
 import ir.neshan.myspringapplication.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,6 @@ public class RestaurantController {
     private final FoodService foodService;
     private RestaurantService restaurantService;
 
-    @Autowired
     public RestaurantController(RestaurantService restaurantService, UserService userService, FoodService foodService) {
         this.restaurantService = restaurantService;
         this.userService = userService;
@@ -67,7 +65,7 @@ public class RestaurantController {
                                                            @RequestParam String username) {
         User user = userService.getUserByUsername(username);
         if (foodService.isOwnerOfRestaurant(user, restaurantId)) {
-            
+
             return ResponseEntity
                     .ok("Food removed from the restaurant's menu.");
         } else {
