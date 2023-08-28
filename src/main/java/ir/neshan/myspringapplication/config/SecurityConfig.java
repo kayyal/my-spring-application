@@ -34,6 +34,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(c -> c.disable())
                 .authorizeRequests()
                 .requestMatchers("/foods/**", "/restaurants/**", "/users/**").hasRole("OWNER")
                 .anyRequest()
@@ -44,7 +45,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain restaurantFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(c -> c.disable())
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
@@ -55,7 +56,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain2(HttpSecurity http) throws Exception {
+    public SecurityFilterChain foodsFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(c -> c.disable())
                 .authorizeHttpRequests(a -> a
