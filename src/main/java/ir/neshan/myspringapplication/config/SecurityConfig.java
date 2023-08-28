@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,17 +13,16 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public UserDetailsService userDetailService() {
+    public UserDetailsService userDetailService(PasswordEncoder passwordEncoder) {
         UserDetails user1 = User.withUsername("amir")
-                .password(passwordEncoder().encode("1234"))
+                .password(passwordEncoder.encode("1234"))
                 .roles("OWNER")
                 .build();
         UserDetails user2 = User.withUsername("ali")
-                .password(passwordEncoder().encode("4321"))
+                .password(passwordEncoder.encode("4321"))
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user1, user2);
@@ -37,6 +35,9 @@ public class SecurityConfig {
                 .csrf(c -> c.disable())
                 .authorizeRequests()
                 .requestMatchers("/foods/**", "/restaurants/**", "/users/**").hasRole("OWNER")
+                .requestMatchers("/restaurants/**").hasRole("OWNER")
+                .requestMatchers("/foods/**", "/orders/**").hasRole("USER")
+                .requestMatchers("/foods/*/change-price").hasRole("OWNER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -45,34 +46,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain restaurantFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(c -> c.disable())
-                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/restaurants/**")
-                        .hasRole("OWNER"));
-
-        return http.build();
-    }
-
-    @Bean
-    public SecurityFilterChain foodsFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(c -> c.disable())
-                .authorizeHttpRequests(a -> a
-                        .requestMatchers("/foods/**")
-                        .hasRole("OWNER")
-                        .anyRequest()
-                        .authenticated()
-                );
-
-        return http.build();
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }

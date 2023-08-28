@@ -23,7 +23,6 @@ public class FoodController {
 
     @GetMapping("/{restaurantId}")
     public List<Food> getFoodbyRestauratns(@PathVariable Long restaurantId) {
-//        System.out.println("in the getFoodbyREstaurants methods !!!!");
         return foodService.getFoodsByRestaurantId(restaurantId);
     }
 
