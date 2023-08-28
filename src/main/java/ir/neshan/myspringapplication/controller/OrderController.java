@@ -2,7 +2,6 @@ package ir.neshan.myspringapplication.controller;
 
 import ir.neshan.myspringapplication.model.Order;
 import ir.neshan.myspringapplication.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,6 @@ public class OrderController {
     private final OrderService orderService;
 
 
-    @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }

@@ -2,7 +2,6 @@ package ir.neshan.myspringapplication.service;
 
 import ir.neshan.myspringapplication.model.Restaurant;
 import ir.neshan.myspringapplication.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ public class UserService {
     private final List<Restaurant> restaurants; // List of restaurants
     private Long nextUserId = 1L;
 
-    @Autowired
     public UserService(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }

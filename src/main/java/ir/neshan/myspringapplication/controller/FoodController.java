@@ -4,7 +4,6 @@ import ir.neshan.myspringapplication.model.Food;
 import ir.neshan.myspringapplication.model.User;
 import ir.neshan.myspringapplication.service.FoodService;
 import ir.neshan.myspringapplication.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ public class FoodController {
     private final FoodService foodService;
     private final UserService userService;
 
-    @Autowired
     public FoodController(FoodService foodService, UserService userService) {
         this.foodService = foodService;
         this.userService = userService;
@@ -25,11 +23,10 @@ public class FoodController {
 
     @GetMapping("/{restaurantId}")
     public List<Food> getFoodbyRestauratns(@PathVariable Long restaurantId) {
-        System.out.println("in the getFoodbyREstaurants methods !!!!");
         return foodService.getFoodsByRestaurantId(restaurantId);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public Food createFood(@RequestBody Food food) {
         return foodService.createFood(food);
     }

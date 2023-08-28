@@ -3,7 +3,6 @@ package ir.neshan.myspringapplication.service;
 import ir.neshan.myspringapplication.model.Food;
 import ir.neshan.myspringapplication.model.Restaurant;
 import ir.neshan.myspringapplication.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ public class FoodService {
     private final List<Restaurant> restaurants; // List of restaurants
     private Long nextFoodId = 1L;
 
-    @Autowired
     public FoodService(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
@@ -28,7 +26,7 @@ public class FoodService {
     }
 
     public Food createFood(Food food) {
-        Food tempFood = new Food(nextFoodId++, food.getName(), food.getPrice(), food.getRestaurant());
+        Food tempFood = new Food(nextFoodId++, food.getName(), food.getRestaurant(), food.getPrice());
         foods.add(tempFood);
         return tempFood;
     }
