@@ -1,3 +1,12 @@
 logging:
   level:
     org.springframework.security: trace
+
+users:
+  userList:
+    - username: amir
+      password: 1234
+      role: OWNER
+    - username: ali
+      password: 4321
+      role: USER

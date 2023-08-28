@@ -14,5 +14,6 @@ import lombok.experimental.FieldDefaults;
 public class Order {
     private Long id;
     private Food food;
+
     private int quantity;
 }
