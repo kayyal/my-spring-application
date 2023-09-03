@@ -1,5 +1,6 @@
 package ir.neshan.myspringapplication.config;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -12,20 +13,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Configuration
+@AllArgsConstructor
 public class SecurityConfig {
+
+    private UserProperties userProperties;
 
     @Bean
     public UserDetailsService userDetailService(PasswordEncoder passwordEncoder) {
-        UserDetails user1 = User.withUsername("amir")
-                .password(passwordEncoder.encode("1234"))
-                .roles("OWNER")
-                .build();
-        UserDetails user2 = User.withUsername("ali")
-                .password(passwordEncoder.encode("4321"))
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user1, user2);
+
+        List<UserDetails> userDetailsList = userProperties.getUserList()
+                .stream()
+                .map(user -> User.withUsername(user.getUsername())
+                        .password(passwordEncoder.encode(user.getPassword()))
+                        .roles(user.getRole())
+                        .build())
+                .collect(Collectors.toList());
+
+        return new InMemoryUserDetailsManager(userDetailsList);
     }
 
 
