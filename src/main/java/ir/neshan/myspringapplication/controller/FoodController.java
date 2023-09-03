@@ -4,6 +4,7 @@ import ir.neshan.myspringapplication.model.Food;
 import ir.neshan.myspringapplication.model.User;
 import ir.neshan.myspringapplication.service.FoodService;
 import ir.neshan.myspringapplication.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +13,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/foods")
+@AllArgsConstructor
 public class FoodController {
+    
     private final FoodService foodService;
     private final UserService userService;
-
-    public FoodController(FoodService foodService, UserService userService) {
-        this.foodService = foodService;
-        this.userService = userService;
-    }
 
     @GetMapping("/{restaurantId}")
     public List<Food> getFoodbyRestauratns(@PathVariable Long restaurantId) {

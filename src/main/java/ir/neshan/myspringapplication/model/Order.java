@@ -1,19 +1,23 @@
 package ir.neshan.myspringapplication.model;
 
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Id;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class Order {
+
+    @Id
     private Long id;
-    private Food food;
+
+    private List<Food> food;
 
     private int quantity;
 }

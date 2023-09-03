@@ -2,19 +2,16 @@ package ir.neshan.myspringapplication.controller;
 
 import ir.neshan.myspringapplication.model.Order;
 import ir.neshan.myspringapplication.service.OrderService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@AllArgsConstructor
 public class OrderController {
     private final OrderService orderService;
-
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
 
     @GetMapping
     public List<Order> getAllOrders() {

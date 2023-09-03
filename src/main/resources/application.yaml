@@ -1,3 +1,41 @@
 logging:
   level:
     org.springframework.security: trace
+users:
+  userList:
+    - username: amir
+      password: 1234
+      role: OWNER
+    - username: ali
+      password: 4321
+      role: USER
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 1234
+    driver-class-name: : org.postgresql.Driver
+    hikari:
+      connection-timeout: 50000
+      idle-timeout: 300000
+      max-lifetime: 900000
+      maximum-pool-size: 10
+      minimum-idle: 10
+      pool-name: ConnPool
+      connection-test-query: SELECT 1
+  jpa:
+    properties:
+      hibernate:
+        jpa:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        #        connection:
+        #          provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+        hibernate:
+        show_sql: true
+        format_sql: true
+    hibernate:
+      ddl-auto: update
