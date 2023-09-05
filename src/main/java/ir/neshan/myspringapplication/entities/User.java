@@ -4,9 +4,11 @@ package ir.neshan.myspringapplication.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
+@Builder
 @Table(name = "users")
 @Entity
 @Getter
@@ -17,7 +19,8 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID")
     UUID id;
 
     @Column(name = "username")

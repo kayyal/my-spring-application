@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +27,7 @@ public class FoodService {
     public List<FoodDTO> findAllFood() {
         List<Food> foods = foodRepository.findAll();
         return foods.stream()
-                .map(food -> foodMapper.toDto(food))
+                .map(foodMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -40,8 +41,21 @@ public class FoodService {
         return false;
     }
 
-    public void deleteFood(Long id) {
-        //// TODO: ۰۵/۰۹/۲۰۲۳
+    public void updateFoodByid(UUID foodId, FoodDTO foodDTO) {
+        foodRepository.findById(foodId).ifPresent(food -> {
+            food.setName(foodDTO.getName());
+            food.setCount(foodDTO.getCount());
+            food.setPricePerUnit(foodDTO.getPricePerUnit());
+            foodRepository.save(food);
+        });
+    }
+
+    public Boolean deleteFoodById(UUID foodId) {
+        if (foodRepository.existsById(foodId)) {
+            foodRepository.deleteById(foodId);
+            return true;
+        }
+        return false;
     }
 
     public void updateFood(Food updatedFood) {

@@ -1,7 +1,7 @@
 package ir.neshan.myspringapplication.controller;
 
+import ir.neshan.myspringapplication.dto.RestaurantDTO;
 import ir.neshan.myspringapplication.entities.Food;
-import ir.neshan.myspringapplication.entities.Restaurant;
 import ir.neshan.myspringapplication.service.FoodService;
 import ir.neshan.myspringapplication.service.RestaurantService;
 import ir.neshan.myspringapplication.service.UserService;
@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -21,18 +22,18 @@ public class RestaurantController {
     private RestaurantService restaurantService;
 
     @GetMapping
-    public List<Restaurant> getAllRestaurants() {
+    public List<RestaurantDTO> getAllRestaurants() {
         return restaurantService.getAllRestaurants();
     }
 
     @PostMapping
-    public Restaurant createRestaurant(@RequestBody Restaurant restaurant) {
-        return restaurantService.createRestaurant(restaurant);
-
+    public RestaurantDTO createRestaurant(@RequestBody RestaurantDTO restaurantDTO) {
+        restaurantService.createRestaurant(restaurantDTO);
+        return restaurantDTO;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRestaurant(@PathVariable Long id) {
+    public void deleteRestaurant(@PathVariable UUID id) {
         restaurantService.deleteRestaurant(id);
     }
 

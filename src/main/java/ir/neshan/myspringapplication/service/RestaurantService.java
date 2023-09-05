@@ -1,5 +1,6 @@
 package ir.neshan.myspringapplication.service;
 
+import ir.neshan.myspringapplication.dto.RestaurantDTO;
 import ir.neshan.myspringapplication.entities.Restaurant;
 import ir.neshan.myspringapplication.mapper.RestaurantMapper;
 import ir.neshan.myspringapplication.repositories.RestaurantRepository;
@@ -7,26 +8,31 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class RestaurantService {
 
-    private final RestaurantRepository repository;
+    private final RestaurantRepository restaurantRepository;
     private final RestaurantMapper restaurantMapper;
 
-    public List<Restaurant> getAllRestaurants() {
-        return restaurantsList;
+    public List<RestaurantDTO> getAllRestaurants() {
+        return restaurantRepository
+                .findAll()
+                .stream()
+                .map(restaurantMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public Restaurant createRestaurant(Restaurant restaurant) {
-        restaurant.setId(nextRestaurantId++);
-        restaurantsList.add(restaurant);
-        return restaurant;
+    public Restaurant createRestaurant(RestaurantDTO restaurantDTO) {
+        return restaurantRepository.save(restaurantMapper.toEntity(restaurantDTO));
+
     }
 
-    public void deleteRestaurant(Long id) {
-        restaurantsList.removeIf(restaurant -> restaurant.getId().equals(id));
+    public void deleteRestaurant(UUID id) {
+        restaurantRepository.deleteById(id);
     }
 
 

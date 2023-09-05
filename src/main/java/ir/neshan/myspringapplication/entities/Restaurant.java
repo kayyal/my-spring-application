@@ -3,11 +3,13 @@ package ir.neshan.myspringapplication.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Set;
 import java.util.UUID;
 
 
+@Builder
 @Table(name = "restaurants")
 @Entity
 @Getter
@@ -18,8 +20,11 @@ import java.util.UUID;
 public class Restaurant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID")
     UUID id;
+
+    @Column(name = "name")
     String name;
 
     @OneToMany

@@ -1,5 +1,6 @@
 package ir.neshan.myspringapplication.controller;
 
+import ir.neshan.myspringapplication.dto.FoodDTO;
 import ir.neshan.myspringapplication.entities.Food;
 import ir.neshan.myspringapplication.service.FoodService;
 import ir.neshan.myspringapplication.service.UserService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/foods")
@@ -27,14 +29,20 @@ public class FoodController {
         return foodService.createFood(food);
     }
 
+
     @PutMapping("/{id}")
-    public void updateFood(@PathVariable Long id, @RequestBody Food updatedFood) {
-        foodService.updateFood(updatedFood);
+    public ResponseEntity updateFoodById(@PathVariable("foodId") UUID foodId, @RequestBody FoodDTO foodDTO) {
+        foodService.updateFoodByid(foodId, foodDTO);
+        return ResponseEntity.ok("Food price updated");
     }
 
     @DeleteMapping("/{id}")
-    public void deleteFood(@PathVariable Long id) {
-        foodService.deleteFood(id);
+    public ResponseEntity deleteFoodById(@PathVariable("foodId") UUID foodId) {
+        if (!foodService.deleteFoodById(foodId)) {
+            return ResponseEntity.status(404).body("The Food is not Found !");
+        }
+        return ResponseEntity.ok("The food has been deleted successfully !");
+
     }
 
     @PutMapping("/{foodId}/change-price")

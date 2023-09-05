@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Table(name = "foods")
 @Entity
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
