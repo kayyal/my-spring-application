@@ -1,15 +1,17 @@
 package ir.neshan.myspringapplication.mapper;
 
-import ir.neshan.myspringapplication.dto.FoodDto;
-import ir.neshan.myspringapplication.model.Food;
+import ir.neshan.myspringapplication.dto.FoodDTO;
+import ir.neshan.myspringapplication.entities.Food;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface FoodMapper {
     FoodMapper INSTANCE = Mappers.getMapper(FoodMapper.class);
 
-    Food toEntity(FoodDto foodDto);
+    Food toEntity(FoodDTO foodDto);
 
-    FoodDto toDto(Food food);
+    FoodDTO toDto(Food food);
 }

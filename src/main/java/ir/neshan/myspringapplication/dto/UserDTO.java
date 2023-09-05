@@ -6,17 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
+
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class FoodDto {
-    Long id;
-    String name;
+@AllArgsConstructor
+public class UserDTO {
 
-    Integer count;
-
-    Double pricePerUnit;
-
-
+    UUID id;
+    String username;
+    String password;
+    String role;
 }

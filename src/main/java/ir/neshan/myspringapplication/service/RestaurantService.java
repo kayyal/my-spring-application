@@ -1,15 +1,19 @@
 package ir.neshan.myspringapplication.service;
 
-import ir.neshan.myspringapplication.model.Restaurant;
+import ir.neshan.myspringapplication.entities.Restaurant;
+import ir.neshan.myspringapplication.mapper.RestaurantMapper;
+import ir.neshan.myspringapplication.repositories.RestaurantRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class RestaurantService {
-    private final List<Restaurant> restaurantsList = new ArrayList<>();
-    private long nextRestaurantId = 1;
+
+    private final RestaurantRepository repository;
+    private final RestaurantMapper restaurantMapper;
 
     public List<Restaurant> getAllRestaurants() {
         return restaurantsList;

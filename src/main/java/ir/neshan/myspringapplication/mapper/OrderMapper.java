@@ -1,17 +1,19 @@
 package ir.neshan.myspringapplication.mapper;
 
-import ir.neshan.myspringapplication.dto.OrderDto;
-import ir.neshan.myspringapplication.model.Food;
-import ir.neshan.myspringapplication.model.Order;
+import ir.neshan.myspringapplication.dto.OrderDTO;
+import ir.neshan.myspringapplication.entities.Food;
+import ir.neshan.myspringapplication.entities.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface OrderMapper {
 
     OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    Order toEntity(OrderDto orderDto);
+    Order toEntity(OrderDTO orderDto);
 
-    OrderDto toDto(Food food);
+    OrderDTO toDto(Food food);
 }

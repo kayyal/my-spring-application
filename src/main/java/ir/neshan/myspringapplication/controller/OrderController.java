@@ -1,6 +1,6 @@
 package ir.neshan.myspringapplication.controller;
 
-import ir.neshan.myspringapplication.model.Order;
+import ir.neshan.myspringapplication.entities.Order;
 import ir.neshan.myspringapplication.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

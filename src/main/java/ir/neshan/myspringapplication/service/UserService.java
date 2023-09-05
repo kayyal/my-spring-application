@@ -1,43 +1,32 @@
 package ir.neshan.myspringapplication.service;
 
-import ir.neshan.myspringapplication.model.Restaurant;
-import ir.neshan.myspringapplication.model.User;
+import ir.neshan.myspringapplication.entities.User;
+import ir.neshan.myspringapplication.mapper.UserMapper;
+import ir.neshan.myspringapplication.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    private final List<User> users = new ArrayList<>();
-    private final List<Restaurant> restaurants; // List of restaurants
-    private Long nextUserId = 1L;
 
-    public UserService(List<Restaurant> restaurants) {
-        this.restaurants = restaurants;
-    }
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
 
     public User createUser(User user) {
-        user.setId(nextUserId++);
-        users.add(user);
-
-        return user;
+        // TODO: ۰۵/۰۹/۲۰۲۳
+        return null;
     }
 
     public User getUserByUsername(String username) {
-        return users.stream()
-                .filter(user -> user.getUsername().equals(username))
-                .findFirst()
-                .orElse(null);
+        // TODO: ۰۵/۰۹/۲۰۲۳
+        return null;
     }
 
     public boolean isOwnerOfRestaurant(User user, Long restaurantId) {
-        Restaurant restaurant = restaurants.stream()
-                .filter(r -> r.getId().equals(restaurantId))
-                .findFirst()
-                .orElse(null);
-
-        return restaurant != null && restaurant.getOwner().getId().equals(user.getId());
+        // TODO: ۰۵/۰۹/۲۰۲۳
+        return false;
     }
 }
 

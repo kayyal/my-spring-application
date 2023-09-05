@@ -1,6 +1,6 @@
 package ir.neshan.myspringapplication.config;
 
-import ir.neshan.myspringapplication.model.User;
+import ir.neshan.myspringapplication.entities.User;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

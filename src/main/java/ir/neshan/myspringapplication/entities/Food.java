@@ -1,8 +1,11 @@
-package ir.neshan.myspringapplication.model;
+package ir.neshan.myspringapplication.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Table(name = "foods")
 @Entity
@@ -14,8 +17,10 @@ import lombok.experimental.FieldDefaults;
 public class Food {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID")
+    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
+    UUID id;
 
     @Column(name = "name")
     String name;

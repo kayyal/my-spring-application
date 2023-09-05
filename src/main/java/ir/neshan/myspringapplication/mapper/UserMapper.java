@@ -1,17 +1,19 @@
 package ir.neshan.myspringapplication.mapper;
 
 
-import ir.neshan.myspringapplication.dto.UserDto;
-import ir.neshan.myspringapplication.model.User;
+import ir.neshan.myspringapplication.dto.UserDTO;
+import ir.neshan.myspringapplication.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    User toEntity(UserDto userDto);
+    User toEntity(UserDTO userDto);
 
-    UserDto toDto(User user);
+    UserDTO toDto(User user);
 }

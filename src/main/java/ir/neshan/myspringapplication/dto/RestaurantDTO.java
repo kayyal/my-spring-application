@@ -1,21 +1,24 @@
 package ir.neshan.myspringapplication.dto;
 
 
-import ir.neshan.myspringapplication.model.Food;
+import ir.neshan.myspringapplication.entities.Food;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDto {
-    private Long id;
+@Getter
+@Setter
+public class RestaurantDTO {
+    UUID id;
+    String name;
 
-    private List<Food> food;
+    List<Food> menu;
+
 
 }

@@ -1,7 +1,9 @@
 package ir.neshan.myspringapplication.repositories;
 
-import ir.neshan.myspringapplication.model.Restaurant;
+import ir.neshan.myspringapplication.entities.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
+import java.util.UUID;
+
+public interface RestaurantRepository extends JpaRepository<Restaurant, UUID> {
 }

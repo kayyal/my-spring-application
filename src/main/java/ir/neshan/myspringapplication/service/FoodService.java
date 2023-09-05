@@ -1,48 +1,47 @@
 package ir.neshan.myspringapplication.service;
 
-import ir.neshan.myspringapplication.model.Food;
-import ir.neshan.myspringapplication.model.Restaurant;
-import ir.neshan.myspringapplication.model.User;
+import ir.neshan.myspringapplication.dto.FoodDTO;
+import ir.neshan.myspringapplication.entities.Food;
+import ir.neshan.myspringapplication.entities.User;
+import ir.neshan.myspringapplication.mapper.FoodMapper;
+import ir.neshan.myspringapplication.repositories.FoodRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class FoodService {
-    private final List<Food> foods = new ArrayList<>();
-    private final List<Restaurant> restaurants; // List of restaurants
-    private Long nextFoodId = 1L;
 
-    public FoodService(List<Restaurant> restaurants) {
-        this.restaurants = restaurants;
-    }
+    private final FoodRepository foodRepository;
+    private final FoodMapper foodMapper;
 
     public List<Food> getFoodsByRestaurantId(Long restaurantId) {
+        //todo
+        return null;
+    }
+
+    public List<FoodDTO> findAllFood() {
+        List<Food> foods = foodRepository.findAll();
         return foods.stream()
-                .filter(item -> item.getRestaurant().getId().equals(restaurantId))
+                .map(food -> foodMapper.toDto(food))
                 .collect(Collectors.toList());
     }
 
     public Food createFood(Food food) {
-        Food tempFood = new Food(nextFoodId++, food.getName(), food.getRestaurant(), food.getPricePerUnit());
-        foods.add(tempFood);
-        return tempFood;
+        //todo
+        return null;
     }
 
     public boolean updateFoodPrice(Long foodId, double newPrice) {
-        for (Food food : foods) {
-            if (food.getId().equals(foodId)) {
-                food.setPricePerUnit(newPrice);
-                return true;
-            }
-        }
+        /// TODO: ۰۵/۰۹/۲۰۲۳
         return false;
     }
 
     public void deleteFood(Long id) {
-        foods.removeIf(item -> item.getId().equals(id));
+        //// TODO: ۰۵/۰۹/۲۰۲۳
     }
 
     public void updateFood(Food updatedFood) {
@@ -50,19 +49,14 @@ public class FoodService {
     }
 
     public boolean isOwnerOfRestaurant(User user, Long restaurantId) {
-        // Implement logic to check if the user is the owner of the restaurant
-        // associated with restaurantId
-        Restaurant restaurant = restaurants.stream()
-                .filter(r -> r.getId().equals(restaurantId))
-                .findFirst()
-                .orElse(null);
-
-        return restaurant != null && restaurant.getOwner().getId().equals(user.getId());
+        //// TODO: ۰۵/۰۹/۲۰۲۳
+        return false;
     }
 
 
     public Food getFoodById(Long foodId) {
-        return foods.get(foodId.intValue());
+        // // TODO: ۰۵/۰۹/۲۰۲۳
+        return null;
     }
 
 }

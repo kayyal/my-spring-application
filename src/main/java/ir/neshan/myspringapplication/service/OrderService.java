@@ -1,24 +1,27 @@
 package ir.neshan.myspringapplication.service;
 
-import ir.neshan.myspringapplication.model.Order;
+import ir.neshan.myspringapplication.entities.Order;
+import ir.neshan.myspringapplication.mapper.OrderMapper;
+import ir.neshan.myspringapplication.repositories.OrderRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class OrderService {
-    private List<Order> orders = new ArrayList<>();
-    private Long nextOrderId = 1L;
+
+    private final OrderRepository repository;
+    private final OrderMapper orderMapper;
 
     public Order createOrder(Order order) {
-        
-        order.setId(nextOrderId);
-        orders.add(order);
-        return order;
+        // TODO: ۰۵/۰۹/۲۰۲۳
+        return null;
     }
 
     public List<Order> getAllOrders() {
-        return orders;
+        // TODO: ۰۵/۰۹/۲۰۲۳
+        return null;
     }
 }

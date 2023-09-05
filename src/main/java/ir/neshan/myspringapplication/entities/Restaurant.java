@@ -1,24 +1,25 @@
-package ir.neshan.myspringapplication.model;
+package ir.neshan.myspringapplication.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Set;
+import java.util.UUID;
 
 
-@Entity
 @Table(name = "restaurants")
+@Entity
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    UUID id;
     String name;
 
     @OneToMany

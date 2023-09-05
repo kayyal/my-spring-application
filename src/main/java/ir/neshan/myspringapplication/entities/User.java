@@ -1,24 +1,24 @@
-package ir.neshan.myspringapplication.model;
+package ir.neshan.myspringapplication.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Entity
+import java.util.UUID;
+
 @Table(name = "users")
-@Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    UUID id;
 
     @Column(name = "username")
     String username;
