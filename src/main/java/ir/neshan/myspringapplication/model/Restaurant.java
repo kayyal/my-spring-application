@@ -1,15 +1,14 @@
 package ir.neshan.myspringapplication.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
+import java.util.Set;
 
 
+@Entity
+@Table(name = "restaurants")
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -22,7 +21,8 @@ public class Restaurant {
     Long id;
     String name;
 
-    List<Food> menu;
+    @OneToMany
+    Set<Food> menu;
 
     @OneToOne
     User owner;

@@ -1,12 +1,17 @@
 package ir.neshan.myspringapplication.model;
 
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
+@Entity
+@Table(name = "orders")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -17,7 +22,7 @@ public class Order {
     @Id
     private Long id;
 
+    @OneToMany
     private List<Food> food;
 
-    private int quantity;
 }

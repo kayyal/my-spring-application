@@ -26,7 +26,7 @@ public class FoodService {
     }
 
     public Food createFood(Food food) {
-        Food tempFood = new Food(nextFoodId++, food.getName(), food.getRestaurant(), food.getPrice());
+        Food tempFood = new Food(nextFoodId++, food.getName(), food.getRestaurant(), food.getPricePerUnit());
         foods.add(tempFood);
         return tempFood;
     }
@@ -34,7 +34,7 @@ public class FoodService {
     public boolean updateFoodPrice(Long foodId, double newPrice) {
         for (Food food : foods) {
             if (food.getId().equals(foodId)) {
-                food.setPrice(newPrice);
+                food.setPricePerUnit(newPrice);
                 return true;
             }
         }

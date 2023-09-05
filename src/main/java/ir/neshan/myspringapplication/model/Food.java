@@ -1,11 +1,11 @@
 package ir.neshan.myspringapplication.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+@Table(name = "foods")
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,10 +16,19 @@ public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
+
+    @Column(name = "name")
     String name;
 
+
+    @Column(name = "count")
+    Integer count;
+
+    @ManyToOne
     Restaurant restaurant;
-    double price;
+
+    @Column(name = "price_per_unit")
+    double pricePerUnit;
 
 
 }
