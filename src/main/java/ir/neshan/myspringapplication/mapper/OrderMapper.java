@@ -8,8 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface OrderMapper {
 
-//    OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
-
     Order toEntity(OrderDTO orderDto);
 
     OrderDTO toDto(Food food);

@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -31,5 +32,8 @@ public class User {
 
     @Column(name = "role")
     String role;
+
+    @OneToMany(mappedBy = "user")
+    List<Order> orders;
 
 }

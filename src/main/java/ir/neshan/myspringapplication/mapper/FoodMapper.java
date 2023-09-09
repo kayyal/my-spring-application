@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface FoodMapper {
-//    FoodMapper INSTANCE = Mappers.getMapper(FoodMapper.class);
 
     Food toEntity(FoodDTO foodDto);
 

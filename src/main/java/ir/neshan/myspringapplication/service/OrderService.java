@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final OrderRepository repository;
+    private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
 
     public Order createOrder(Order order) {
@@ -23,5 +23,9 @@ public class OrderService {
     public List<Order> getAllOrders() {
         // TODO: ۰۵/۰۹/۲۰۲۳
         return null;
+    }
+
+    public List<Order> findOrdersByRestaurantName(String restaurantName) {
+        return orderRepository.findOrdersByRestaurantName(restaurantName);
     }
 }

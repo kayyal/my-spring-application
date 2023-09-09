@@ -27,7 +27,7 @@ public class Order {
     @OneToMany
     List<Food> food;
 
-    @OneToOne
+    @ManyToOne
     User user;
 
 }

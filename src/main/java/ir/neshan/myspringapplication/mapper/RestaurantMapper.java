@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface RestaurantMapper {
-//    RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
 
     RestaurantDTO toDto(Restaurant restaurant);
 

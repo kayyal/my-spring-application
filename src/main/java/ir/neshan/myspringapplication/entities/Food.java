@@ -31,6 +31,14 @@ public class Food {
     Integer count;
 
     @ManyToOne
+    @JoinColumn(
+            name = "restaurant_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "food_restaurant_id"
+            )
+    )
     Restaurant restaurant;
 
     @Column(name = "price_per_unit")

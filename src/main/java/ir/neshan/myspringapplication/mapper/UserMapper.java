@@ -8,8 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface UserMapper {
 
-//    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
     User toEntity(UserDTO userDto);
 
     UserDTO toDto(User user);
