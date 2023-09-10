@@ -5,6 +5,8 @@ import ir.neshan.myspringapplication.entities.Restaurant;
 import ir.neshan.myspringapplication.mapper.RestaurantMapper;
 import ir.neshan.myspringapplication.repositories.RestaurantRepository;
 import lombok.AllArgsConstructor;
+import org.redisson.api.RList;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +19,23 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMapper restaurantMapper;
+    private final RedissonClient redissonClient;
 
     public List<RestaurantDTO> getAllRestaurants() {
-        return restaurantRepository
-                .findAll()
-                .stream()
-                .map(restaurantMapper::toDto)
-                .collect(Collectors.toList());
+        RList<RestaurantDTO> cashedRestaurants = redissonClient.getList("restaurants");
+        List<RestaurantDTO> cachedData = cashedRestaurants.readAll();
+        if (cachedData.isEmpty()) {
+            List<RestaurantDTO> restaurantsFromDB = restaurantRepository
+                    .findAll()
+                    .stream()
+                    .map(restaurantMapper::toDto)
+                    .collect(Collectors.toList());
+            cashedRestaurants.addAll(restaurantsFromDB);
+            return restaurantsFromDB;
+        } else {
+            return cachedData;
+        }
+
     }
 
     public Restaurant createRestaurant(RestaurantDTO restaurantDTO) {
