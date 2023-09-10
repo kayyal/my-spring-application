@@ -4,7 +4,7 @@ import ir.neshan.myspringapplication.dto.RestaurantDTO;
 import ir.neshan.myspringapplication.entities.Restaurant;
 import ir.neshan.myspringapplication.mapper.RestaurantMapper;
 import ir.neshan.myspringapplication.repositories.RestaurantRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
