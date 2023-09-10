@@ -9,6 +9,8 @@ users:
     - username: ali
       password: 4321
       role: USER
+redis:
+  address: redis://localhost:6379
 
 
 spring:
@@ -43,5 +45,4 @@ spring:
     redis:
       host: localhost
       port: 6379
-
 
