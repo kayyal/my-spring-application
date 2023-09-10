@@ -27,7 +27,7 @@ public class Restaurant {
     @Column(name = "name")
     String name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     Set<Food> menu;
 
     @OneToOne

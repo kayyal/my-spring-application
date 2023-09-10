@@ -24,7 +24,7 @@ public class Order {
     @GenericGenerator(name = "UUID")
     UUID id;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     List<Food> food;
 
     @ManyToOne

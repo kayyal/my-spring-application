@@ -38,13 +38,33 @@ public class RestaurantService {
 
     }
 
-    public Restaurant createRestaurant(RestaurantDTO restaurantDTO) {
-        return restaurantRepository.save(restaurantMapper.toEntity(restaurantDTO));
+    public Restaurant createRestaurant(RestaurantDTO newRestaurant) {
+        Restaurant savedRestaurant = restaurantRepository.save(restaurantMapper.toEntity(newRestaurant));
+        RList<RestaurantDTO> cachedRestaurant = redissonClient.getList("restaurants");
+        cachedRestaurant.add(restaurantMapper.toDto(savedRestaurant));
+        return savedRestaurant;
+    }
 
+    public void updateRestaurant(RestaurantDTO updatedRestaurant) {
+        // Update the restaurant in the database
+        Restaurant updatedEntity = restaurantRepository.save(restaurantMapper.toEntity(updatedRestaurant));
+
+        // Update the restaurant in the cache
+        RList<RestaurantDTO> cachedRestaurants = redissonClient.getList("restaurants");
+
+        // Find and update the existing restaurant in the cache
+        for (RestaurantDTO cachedRestaurant : cachedRestaurants) {
+            if (cachedRestaurant.getId() == updatedRestaurant.getId()) {
+                cachedRestaurants.set(cachedRestaurants.indexOf(cachedRestaurant), updatedRestaurant);
+                break;
+            }
+        }
     }
 
     public void deleteRestaurant(UUID id) {
         restaurantRepository.deleteById(id);
+        RList<RestaurantDTO> cachedRestaurants = redissonClient.getList("restaurants");
+        cachedRestaurants.removeIf(restaurantDTO -> restaurantDTO.getId() == id);
     }
 
 

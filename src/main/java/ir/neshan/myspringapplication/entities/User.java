@@ -33,7 +33,9 @@ public class User {
     @Column(name = "role")
     String role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY
+    )
     List<Order> orders;
 
 }
