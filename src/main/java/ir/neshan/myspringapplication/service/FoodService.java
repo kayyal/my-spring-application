@@ -2,13 +2,16 @@ package ir.neshan.myspringapplication.service;
 
 import ir.neshan.myspringapplication.dto.FoodDTO;
 import ir.neshan.myspringapplication.entities.Food;
-import ir.neshan.myspringapplication.entities.User;
+import ir.neshan.myspringapplication.entities.Restaurant;
+import ir.neshan.myspringapplication.exceptions.ResourceNotFoundException;
 import ir.neshan.myspringapplication.mapper.FoodMapper;
 import ir.neshan.myspringapplication.repositories.FoodRepository;
+import ir.neshan.myspringapplication.repositories.RestaurantRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -17,11 +20,16 @@ import java.util.stream.Collectors;
 public class FoodService {
 
     private final FoodRepository foodRepository;
+    private final RestaurantRepository restaurantRepository;
     private final FoodMapper foodMapper;
 
-    public List<Food> getFoodsByRestaurantId(Long restaurantId) {
-        //todo
-        return null;
+    public List<FoodDTO> getFoodsByRestaurantId(UUID restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new ResourceNotFoundException("Restaurant not found with id: " + restaurantId));
+        List<Food> foods = foodRepository.findByRestaurant(restaurant);
+        return foods.stream()
+                .map(foodMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     public List<FoodDTO> findAllFood() {
@@ -32,13 +40,16 @@ public class FoodService {
     }
 
     public Food createFood(Food food) {
-        //todo
-        return null;
+        Food savedFood = foodRepository.save(food);
+        return savedFood;
     }
 
-    public boolean updateFoodPrice(Long foodId, double newPrice) {
-        /// TODO: ۰۵/۰۹/۲۰۲۳
-        return false;
+    public boolean updateFoodPrice(UUID foodId, double newPrice) {
+        Food food = foodRepository.findById(foodId)
+                .orElseThrow(() -> new ResourceNotFoundException("Food not found with id: " + foodId));
+        food.setPricePerUnit(newPrice);
+        foodRepository.save(food);
+        return true;
     }
 
     public void updateFoodByid(UUID foodId, FoodDTO foodDTO) {
@@ -58,19 +69,9 @@ public class FoodService {
         return false;
     }
 
-    public void updateFood(Food updatedFood) {
 
-    }
-
-    public boolean isOwnerOfRestaurant(User user, Long restaurantId) {
-        //// TODO: ۰۵/۰۹/۲۰۲۳
-        return false;
-    }
-
-
-    public Food getFoodById(Long foodId) {
-        // // TODO: ۰۵/۰۹/۲۰۲۳
-        return null;
+    public Optional<Food> getFoodById(UUID foodId) {
+        return foodRepository.findById(foodId);
     }
 
 }

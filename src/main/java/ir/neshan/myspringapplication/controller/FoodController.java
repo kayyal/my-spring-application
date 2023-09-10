@@ -20,7 +20,7 @@ public class FoodController {
     private final UserService userService;
 
     @GetMapping("/{restaurantId}")
-    public List<Food> getFoodbyRestauratns(@PathVariable Long restaurantId) {
+    public List<FoodDTO> getFoodbyRestauratns(@PathVariable UUID restaurantId) {
         return foodService.getFoodsByRestaurantId(restaurantId);
     }
 
