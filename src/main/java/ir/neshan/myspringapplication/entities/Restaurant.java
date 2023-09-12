@@ -18,7 +18,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Restaurant {
-
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID")

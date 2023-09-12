@@ -26,7 +26,6 @@ public class Food {
     @Column(name = "name")
     String name;
 
-
     @Column(name = "count")
     Integer count;
 
@@ -43,6 +42,4 @@ public class Food {
 
     @Column(name = "price_per_unit")
     double pricePerUnit;
-
-
 }

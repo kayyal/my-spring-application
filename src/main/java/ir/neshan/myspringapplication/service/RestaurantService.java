@@ -47,7 +47,7 @@ public class RestaurantService {
 
     public void updateRestaurant(RestaurantDTO updatedRestaurant) {
         // Update the restaurant in the database
-        Restaurant updatedEntity = restaurantRepository.save(restaurantMapper.toEntity(updatedRestaurant));
+        restaurantRepository.save(restaurantMapper.toEntity(updatedRestaurant));
 
         // Update the restaurant in the cache
         RList<RestaurantDTO> cachedRestaurants = redissonClient.getList("restaurants");

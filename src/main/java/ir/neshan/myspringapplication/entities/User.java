@@ -37,5 +37,4 @@ public class User {
             fetch = FetchType.LAZY
     )
     List<Order> orders;
-
 }
