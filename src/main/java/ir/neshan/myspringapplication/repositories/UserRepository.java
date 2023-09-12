@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query("select u from User u join u.orders o join o.food f where f.name = :foodName")
     List<User> findUsersByOrderedFood(@Param("foodName") String foodName);
+
+    public User findByUsername(String username);
 }

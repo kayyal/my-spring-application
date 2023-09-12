@@ -29,8 +29,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final RestaurantRepository restaurantRepository;
+    private final FoodRepository foodRepository;
     private final RabbitTemplate rabbitTemplate;
-    FoodRepository foodRepository;
 
     public Order createOrder(Order order) {
         Order savedOrder = orderRepository.save(order);
