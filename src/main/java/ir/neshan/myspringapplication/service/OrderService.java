@@ -71,7 +71,7 @@ public class OrderService {
 
             // Send the remaining food count to RabbitMQ
             GlobalMessage globalMessage = new GlobalMessage(food.getName(), newCount);
-            rabbitTemplate.convertAndSend(MQConfig.EXCHANGE, MQConfig.ROUTING_KEY, globalMessage);
+            rabbitTemplate.convertAndSend(MQConfig.EXCHANGE, MQConfig.ROUTING_KEY1, globalMessage);
         } else {
             throw new InvalidDataException();
         }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.GenericGenerator;
+import org.postgis.Point;
 
 import java.util.Set;
 import java.util.UUID;
@@ -31,4 +32,8 @@ public class Restaurant {
 
     @OneToOne
     User owner;
+
+    @Column(name = "location", columnDefinition = "geometry(Point , 4326)")
+    Point location;
+
 }
