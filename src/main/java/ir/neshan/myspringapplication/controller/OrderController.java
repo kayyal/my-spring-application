@@ -1,6 +1,7 @@
 package ir.neshan.myspringapplication.controller;
 
-import ir.neshan.myspringapplication.model.Order;
+import ir.neshan.myspringapplication.dto.OrderDTO;
+import ir.neshan.myspringapplication.entities.Order;
 import ir.neshan.myspringapplication.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping
-    public List<Order> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
         return orderService.getAllOrders();
     }
 

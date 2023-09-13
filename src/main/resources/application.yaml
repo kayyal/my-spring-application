@@ -9,14 +9,17 @@ users:
     - username: ali
       password: 4321
       role: USER
+redis:
+  address: redis://localhost:6379
 
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    #    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/mydatabase
     username: postgres
     password: 1234
-    driver-class-name: : org.postgresql.Driver
+    driver-class-name: org.postgresql.Driver
     hikari:
       connection-timeout: 50000
       idle-timeout: 300000
@@ -39,3 +42,14 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: update
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+

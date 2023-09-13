@@ -1,43 +1,40 @@
 package ir.neshan.myspringapplication.service;
 
-import ir.neshan.myspringapplication.model.Restaurant;
-import ir.neshan.myspringapplication.model.User;
+import ir.neshan.myspringapplication.entities.Restaurant;
+import ir.neshan.myspringapplication.entities.User;
+import ir.neshan.myspringapplication.exceptions.ResourceNotFoundException;
+import ir.neshan.myspringapplication.mapper.UserMapper;
+import ir.neshan.myspringapplication.repositories.RestaurantRepository;
+import ir.neshan.myspringapplication.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    private final List<User> users = new ArrayList<>();
-    private final List<Restaurant> restaurants; // List of restaurants
-    private Long nextUserId = 1L;
 
-    public UserService(List<Restaurant> restaurants) {
-        this.restaurants = restaurants;
-    }
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final RestaurantRepository restaurantRepository;
 
     public User createUser(User user) {
-        user.setId(nextUserId++);
-        users.add(user);
-
-        return user;
+        return userRepository.save(user);
     }
 
     public User getUserByUsername(String username) {
-        return users.stream()
-                .filter(user -> user.getUsername().equals(username))
-                .findFirst()
-                .orElse(null);
+        return userRepository.findByUsername(username);
     }
 
-    public boolean isOwnerOfRestaurant(User user, Long restaurantId) {
-        Restaurant restaurant = restaurants.stream()
-                .filter(r -> r.getId().equals(restaurantId))
-                .findFirst()
-                .orElse(null);
-
-        return restaurant != null && restaurant.getOwner().getId().equals(user.getId());
+    public boolean isOwnerOfRestaurant(User user, UUID restaurantId) {
+        Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
+        if (restaurant.isPresent()) {
+            return restaurant.get().getOwner().equals(user);
+        } else {
+            throw new ResourceNotFoundException("The Restaurant is not found !");
+        }
     }
 }
 

@@ -1,6 +1,6 @@
 package ir.neshan.myspringapplication.controller;
 
-import ir.neshan.myspringapplication.model.User;
+import ir.neshan.myspringapplication.entities.User;
 import ir.neshan.myspringapplication.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
